@@ -111,8 +111,13 @@ module Hubspot
         path = GET_COMPANY_BY_ID_PATH
         params = { company_id: id }
         raise Hubspot::InvalidParams, 'expecting Integer parameter' unless id.try(:is_a?, Integer)
-        response = Hubspot::Connection.get_json(path, params)
-        new(response)
+        begin
+          response = Hubspot::Connection.get_json(path, params)
+          new(response)
+        rescue => e
+          raise e unless e.message =~ /not exist/ # 404 / handle the error and kindly return nil
+          nil
+        end
       end
 
       # Creates a company with a name
