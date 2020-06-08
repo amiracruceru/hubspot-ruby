@@ -4,6 +4,7 @@ module Hubspot
     ALL_PROPERTIES_PATH  = '/deals/v1/properties'
     ALL_GROUPS_PATH      = '/deals/v1/groups'
     CREATE_PROPERTY_PATH = '/deals/v1/properties/'
+    GET_PROPERTY_BY_NAME = '/deals/v1/properties/named/:property_name'
     UPDATE_PROPERTY_PATH = '/deals/v1/properties/named/:property_name'
     DELETE_PROPERTY_PATH = '/deals/v1/properties/named/:property_name'
     CREATE_GROUP_PATH    = '/deals/v1/groups/'
@@ -17,6 +18,11 @@ module Hubspot
 
       def all(opts={}, filter={})
         superclass.all(ALL_PROPERTIES_PATH, opts, filter)
+      end
+
+      def find_by_name(property_name, params={})
+        property_name
+        params
       end
 
       def groups(opts={}, filter={})
